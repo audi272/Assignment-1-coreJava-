@@ -7,8 +7,6 @@ public class TablePrinter {
 		TablePrinter tp = new TablePrinter();
 		// t2 thread
 		Thread t2 = new Thread(new Runnable() {
-
-			@SuppressWarnings("static-access")
 			@Override
 			public void run() {
 				tp.printTableTwo();
@@ -16,8 +14,6 @@ public class TablePrinter {
 		});
 		// t3 thread
 		Thread t3 = new Thread(new Runnable() {
-
-			@SuppressWarnings("static-access")
 			@Override
 			public void run() {
 				tp.printTableThree();
