@@ -1,7 +1,6 @@
 package com.encora.threads;
 
 public class TablePrinter {
-	private static final Object lock = new Object(); // Shared lock object
 	private static boolean isTableOfTwoPrinted = false;
 
 	public static void main(String[] args) {
@@ -29,21 +28,21 @@ public class TablePrinter {
 		t3.start();
 	}
 
-	public static void printTableTwo() {
-		synchronized (lock) {
+	public void printTableTwo() {
+		synchronized (this) {
 			for (int i = 1; i <= 10; i++) {
 				System.out.println("2 x " + i + " = " + (2 * i));
 			}
 			isTableOfTwoPrinted = true;
-			lock.notify(); // this will notify to the thread 2 which are in waiting state
+			notify(); // this will notify to the thread 2 which are in waiting state
 		}
 	}
 
-	public static void printTableThree() {
-		synchronized (lock) {
+	public void printTableThree() {
+		synchronized (this) {
 			try {
 				while (!isTableOfTwoPrinted) {
-					lock.wait(); // this will wait untill thread 1 execution is not completed
+					wait(); // this will wait untill thread 1 execution is not completed
 				}
 				for (int i = 1; i <= 10; i++) {
 					System.out.println("3 x " + i + " = " + (3 * i));
